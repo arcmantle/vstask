@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.vscode-test/
+.DS_Store
+*.log
+*.vsix
+.env
+.env.*
+!.env.example

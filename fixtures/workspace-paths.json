@@ -1,0 +1,66 @@
+{
+	"baseline": "7d842fb85a0275a4a8e4d7e040d2625abbf7f084",
+	"sources": [
+		"src/vs/workbench/services/configurationResolver/common/variableResolver.ts#evaluateSingleVariable",
+		"src/vs/workbench/contrib/tasks/browser/terminalTaskSystem.ts#_resolveOptions",
+		"src/vs/workbench/contrib/tasks/browser/terminalTaskSystem.ts#_createShellLaunchConfig"
+	],
+	"cases": [
+		{
+			"name": "default",
+			"options": null,
+			"cwd": "<project>"
+		},
+		{
+			"name": "missing cwd",
+			"options": {
+				"env": {
+					"OUT": "${workspaceFolder}/out"
+				}
+			},
+			"cwd": "<project>"
+		},
+		{
+			"name": "relative",
+			"options": {
+				"cwd": "../artifacts"
+			},
+			"cwd": "<parent>/artifacts"
+		},
+		{
+			"name": "absolute",
+			"options": {
+				"cwd": "<root>/shared/output"
+			},
+			"cwd": "<root>/shared/output"
+		},
+		{
+			"name": "workspace variable",
+			"options": {
+				"cwd": "${workspaceFolder}/output"
+			},
+			"cwd": "<project>/output"
+		},
+		{
+			"name": "empty",
+			"options": {
+				"cwd": ""
+			},
+			"cwd": ""
+		},
+		{
+			"name": "non-string",
+			"options": {
+				"cwd": 17
+			},
+			"cwd": "<project>"
+		},
+		{
+			"name": "deferred variable",
+			"options": {
+				"cwd": "${env:OUTPUT}"
+			},
+			"cwd": "${env:OUTPUT}"
+		}
+	]
+}

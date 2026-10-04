@@ -1,0 +1,271 @@
+{
+	"version": "2.0.0",
+	"type": "process",
+	"command": "node",
+	"args": [
+		"--version"
+	],
+	"options": {
+		"cwd": "${workspaceFolder}",
+		"env": {
+			"FIXTURE": "global"
+		}
+	},
+	"presentation": {
+		"reveal": "never",
+		"echo": false
+	},
+	"group": "none",
+	"problemMatcher": [],
+	"isBackground": false,
+	"promptOnClose": true,
+	"windows": {
+		"command": "node.exe",
+		"args": [
+			"--version"
+		]
+	},
+	"osx": {
+		"command": "node",
+		"args": [
+			"--version"
+		]
+	},
+	"linux": {
+		"command": "node",
+		"args": [
+			"--version"
+		]
+	},
+	"declares": [
+		{
+			"name": "fixture",
+			"owner": "fixture",
+			"pattern": {
+				"regexp": "^(.+):(\\d+):(\\d+): (.+)$",
+				"file": 1,
+				"line": 2,
+				"column": 3,
+				"message": 4
+			}
+		}
+	],
+	"inputs": [
+		{
+			"id": "text",
+			"type": "promptString",
+			"description": "Value",
+			"default": "default",
+			"password": true
+		},
+		{
+			"id": "choice",
+			"type": "pickString",
+			"description": "Choice",
+			"default": "one",
+			"options": [
+				"one",
+				{
+					"label": "Second",
+					"value": "two"
+				}
+			]
+		},
+		{
+			"id": "command",
+			"type": "command",
+			"command": "fixture.command",
+			"args": {
+				"value": "input"
+			}
+		}
+	],
+	"tasks": [
+		{
+			"label": "fixture:fields",
+			"taskName": "legacy-name",
+			"identifier": "legacy-identifier",
+			"type": "shell",
+			"command": {
+				"value": [
+					"echo",
+					"fixture"
+				],
+				"quoting": "strong"
+			},
+			"args": [
+				"${input:text}",
+				{
+					"value": "${input:choice}",
+					"quoting": "weak"
+				},
+				{
+					"value": "space value",
+					"quoting": "escape"
+				}
+			],
+			"options": {
+				"cwd": "${workspaceFolder}",
+				"env": {
+					"FIXTURE": "${env:HOME}",
+					"CONFIG": "${config:fixture.value}"
+				},
+				"shell": {
+					"executable": "bash",
+					"args": [
+						"-c"
+					],
+					"quoting": {
+						"escape": {
+							"escapeChar": "\\",
+							"charsToEscape": " "
+						},
+						"strong": "'",
+						"weak": "\""
+					}
+				}
+			},
+			"windows": {
+				"command": "echo fixture",
+				"args": [],
+				"options": {
+					"shell": {
+						"executable": "cmd.exe",
+						"args": [
+							"/d",
+							"/c"
+						]
+					}
+				},
+				"problemMatcher": []
+			},
+			"osx": {
+				"command": "echo fixture",
+				"args": [],
+				"options": {
+					"cwd": "${workspaceFolder}"
+				},
+				"problemMatcher": "$fixture"
+			},
+			"linux": {
+				"command": "echo fixture",
+				"args": [],
+				"options": {
+					"env": {
+						"FIXTURE": "linux"
+					}
+				},
+				"problemMatcher": []
+			},
+			"isBackground": true,
+			"promptOnClose": false,
+			"group": {
+				"kind": "build",
+				"isDefault": "*.ts"
+			},
+			"detail": "Full-field seed; execution is not verified.",
+			"dependsOn": [
+				"fixture:leaf",
+				{
+					"type": "fixture-provider",
+					"script": "build"
+				}
+			],
+			"dependsOrder": "sequence",
+			"presentation": {
+				"reveal": "always",
+				"revealProblems": "onProblem",
+				"echo": true,
+				"focus": false,
+				"panel": "dedicated",
+				"showReuseMessage": false,
+				"clear": true,
+				"group": "fixture",
+				"close": false,
+				"preserveTerminalName": true
+			},
+			"runOptions": {
+				"reevaluateOnRerun": false,
+				"runOn": "folderOpen",
+				"instanceLimit": 2,
+				"instancePolicy": "terminateOldest"
+			},
+			"icon": {
+				"id": "tools",
+				"color": "terminal.ansiGreen"
+			},
+			"color": "terminal.ansiGreen",
+			"hide": true,
+			"problemMatcher": [
+				"$fixture",
+				{
+					"base": "$tsc",
+					"owner": "fixture",
+					"source": "fixture",
+					"severity": "warning",
+					"applyTo": "allDocuments",
+					"fileLocation": [
+						"search",
+						{
+							"include": [
+								"${workspaceFolder}"
+							],
+							"exclude": [
+								"node_modules"
+							]
+						}
+					],
+					"pattern": [
+						{
+							"regexp": "^(.+)$",
+							"kind": "location",
+							"file": 1
+						},
+						{
+							"regexp": "^(\\d+):(\\d+):(\\d+):(\\d+): (error|warning|info): ([^:]+): (.+)$",
+							"line": 1,
+							"column": 2,
+							"endLine": 3,
+							"endColumn": 4,
+							"severity": 5,
+							"code": 6,
+							"message": 7,
+							"loop": true
+						}
+					],
+					"background": {
+						"activeOnStart": true,
+						"beginsPattern": {
+							"regexp": "^BEGIN (.+)$",
+							"file": 1
+						},
+						"endsPattern": "^READY$"
+					}
+				}
+			]
+		},
+		{
+			"label": "fixture:leaf",
+			"type": "process",
+			"command": "node",
+			"args": [
+				"--version"
+			],
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			}
+		},
+		{
+			"label": "fixture:parallel",
+			"dependsOn": "fixture:leaf",
+			"dependsOrder": "parallel"
+		},
+		{
+			"label": "fixture:provider",
+			"type": "fixture-provider",
+			"script": "build",
+			"customize": "vscode.npm.build"
+		}
+	]
+}

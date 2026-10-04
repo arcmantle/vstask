@@ -1,0 +1,84 @@
+{
+	"version": "0.1.0",
+	"_runner": "process",
+	"runner": "process",
+	"command": "node",
+	"args": [],
+	"isShellCommand": false,
+	"showOutput": "silent",
+	"echoCommand": true,
+	"suppressTaskName": true,
+	"taskSelector": "--",
+	"isWatching": false,
+	"tasks": [
+		{
+			"taskName": "fixture:legacy",
+			"label": "ignored-v2-label",
+			"command": "node",
+			"args": [
+				"--version"
+			],
+			"isShellCommand": {
+				"executable": "bash",
+				"args": [
+					"-c"
+				]
+			},
+			"showOutput": "always",
+			"echoCommand": false,
+			"terminal": {
+				"panel": "new",
+				"reveal": "silent"
+			},
+			"suppressTaskName": true,
+			"taskSelector": "--",
+			"isWatching": true,
+			"isBuildCommand": true,
+			"isTestCommand": false,
+			"problemMatcher": {
+				"owner": "legacy",
+				"fileLocation": [
+					"relative",
+					"${workspaceFolder}"
+				],
+				"pattern": {
+					"regexp": "^(.+)\\((\\d+,\\d+)\\): (.+)$",
+					"file": 1,
+					"location": 2,
+					"message": 3
+				},
+				"watching": {
+					"activeOnStart": false,
+					"beginsPattern": "^BEGIN$",
+					"endsPattern": "^READY$"
+				},
+				"watchedTaskBeginsRegExp": "^BEGIN$",
+				"watchedTaskEndsRegExp": "^READY$"
+			}
+		}
+	],
+	"windows": {
+		"tasks": [
+			{
+				"taskName": "fixture:legacy",
+				"command": "node.exe"
+			}
+		]
+	},
+	"osx": {
+		"tasks": [
+			{
+				"taskName": "fixture:legacy",
+				"command": "node"
+			}
+		]
+	},
+	"linux": {
+		"tasks": [
+			{
+				"taskName": "fixture:legacy",
+				"command": "node"
+			}
+		]
+	}
+}

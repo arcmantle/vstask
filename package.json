@@ -1,0 +1,24 @@
+{
+	"name": "vstask-workspace",
+	"version": "0.0.0",
+	"private": true,
+	"workspaces": [
+		"packages/*"
+	],
+	"engines": {
+		"node": ">=22"
+	},
+	"scripts": {
+		"build": "tsc -b",
+		"verify": "node scripts/verify-baseline.mjs",
+		"test:extension": "npm run build && node tests/extension-host/run.cjs",
+		"test": "npm run build && npm run verify && node --test tests/*.test.mjs"
+	},
+	"devDependencies": {
+		"@inquirer/testing": "^2.1.0",
+		"@types/node": "24.10.1",
+		"@types/vscode": "^1.105.0",
+		"@vscode/test-electron": "^2.5.2",
+		"typescript": "5.9.3"
+	}
+}

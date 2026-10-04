@@ -1,0 +1,94 @@
+{
+	"repository": "https://github.com/microsoft/vscode",
+	"tag": "1.105.1",
+	"commit": "7d842fb85a0275a4a8e4d7e040d2625abbf7f084",
+	"releaseReady": false,
+	"files": [
+		{
+			"upstream": "src/vs/base/common/json.ts",
+			"local": "packages/core/src/upstream/json.ts",
+			"blob": "8623e87503b872cbbd428381c452a044c5e72a1c",
+			"role": "compiled"
+		},
+		{
+			"upstream": "LICENSE.txt",
+			"local": "packages/core/src/upstream/LICENSE.txt",
+			"blob": "0ac28ee234d232ac0691f39cebf95bf6b2a763a5",
+			"role": "license"
+		},
+		{
+			"upstream": "src/vs/workbench/contrib/tasks/common/taskConfiguration.ts",
+			"local": "fixtures/upstream/taskConfiguration.ts",
+			"blob": "2f149d1f0040ca6e8d03dfa4db2b26740dd5aec6",
+			"role": "reference"
+		},
+		{
+			"upstream": "src/vs/workbench/contrib/tasks/common/jsonSchema_v2.ts",
+			"local": "fixtures/upstream/jsonSchema_v2.ts",
+			"blob": "d917ab2e032f1dbfe0cf0cc604b43f0c095acf4c",
+			"role": "reference"
+		},
+		{
+			"upstream": "src/vs/workbench/contrib/tasks/common/jsonSchemaCommon.ts",
+			"local": "fixtures/upstream/jsonSchemaCommon.ts",
+			"blob": "9db6b8adfecb653fc95da140fad4649f3e637033",
+			"role": "reference"
+		},
+		{
+			"upstream": "src/vs/workbench/contrib/tasks/common/problemMatcher.ts",
+			"local": "fixtures/upstream/problemMatcher.ts",
+			"blob": "16b5b849647883a2fb47e834f1619dbb93fd30c8",
+			"role": "reference"
+		},
+		{
+			"upstream": "src/vs/workbench/contrib/tasks/common/jsonSchema_v1.ts",
+			"local": "fixtures/upstream/jsonSchema_v1.ts",
+			"blob": "67017b41d2e9fe69fe7a5fc48977ea15ca7af19d",
+			"role": "reference"
+		},
+		{
+			"upstream": "src/vs/workbench/services/configurationResolver/common/configurationResolverSchema.ts",
+			"local": "fixtures/upstream/configurationResolverSchema.ts",
+			"blob": "90db04d040e243c6c6fc8ce3993f0cba9905907d",
+			"role": "reference"
+		},
+		{
+			"upstream": "src/vs/workbench/services/configurationResolver/common/variableResolver.ts",
+			"local": "fixtures/upstream/variableResolver.ts",
+			"blob": "3b2c9d392a8470eebf06acf12c0a70e4fbb4ffcf",
+			"role": "reference"
+		},
+		{
+			"upstream": "src/vs/workbench/services/configurationResolver/common/configurationResolver.ts",
+			"local": "fixtures/upstream/configurationResolver.ts",
+			"blob": "15f7c61d9b6215ba49d0207d8a2849047185e6b6",
+			"role": "reference"
+		},
+		{
+			"upstream": "src/vs/workbench/services/configurationResolver/common/configurationResolverExpression.ts",
+			"local": "fixtures/upstream/configurationResolverExpression.ts",
+			"blob": "25d505123e92d8bb98432848511b1090baadfd31",
+			"role": "reference"
+		}
+	],
+	"adaptations": [
+		{
+			"local": "packages/core/src/shell.ts",
+			"upstream": "src/vs/workbench/contrib/tasks/browser/terminalTaskSystem.ts",
+			"symbol": "_buildShellCommandLine, _getQuotingOptions, _addAllArgument, _createShellLaunchConfig",
+			"changes": "Adapt shell quoting and command switches to prepared task configurations and Node.js spawn. Keep the command before variable resolution, nested shell-option inheritance, Windows outer quoting and PowerShell invocation. Use SHELL or /bin/sh on POSIX and powershell.exe on Windows instead of a VS Code terminal profile. Retain shared process streams and completion. The upstream file was inspected at the pinned commit; it is not an imported reference snapshot."
+		},
+		{
+			"local": "packages/core/src/upstream/taskLabel.ts",
+			"upstream": "src/vs/workbench/contrib/tasks/common/taskConfiguration.ts",
+			"symbol": "CustomTask.from",
+			"changes": "Extract taskName and label selection. Replace Types.isString with typeof. Return the label without workbench services or task execution."
+		},
+		{
+			"local": "packages/core/src/upstream/configurationResolverExpression.ts",
+			"upstream": "src/vs/workbench/services/configurationResolver/common/configurationResolverExpression.ts",
+			"symbol": "ConfigurationResolverExpression",
+			"changes": "Replace workbench iterator helpers with native iterators. Accept an explicit platform with the process platform as default. Remove workbench imports and use unknown for unused input metadata. Keep replacement parsing, nested substitution, key renaming, and cycle tracking."
+		}
+	]
+}

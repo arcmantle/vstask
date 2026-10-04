@@ -1,0 +1,5 @@
+BEGIN sample.ts
+sample.ts
+2:3:2:8: warning: F001: first problem
+4:1:4:6: error: F002: second problem
+READY

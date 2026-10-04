@@ -1,0 +1,16 @@
+{
+	"name": "@vstask/cli",
+	"version": "0.0.0",
+	"private": true,
+	"type": "commonjs",
+	"main": "dist/index.js",
+	"bin": {
+		"vstask": "bin/launch.cjs"
+	},
+	"dependencies": {
+		"@inquirer/prompts": "^7.10.1",
+		"@vstask/core": "0.0.0",
+		"clipanion": "3.2.1",
+		"fuse.js": "^7.5.0"
+	}
+}

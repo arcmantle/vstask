@@ -1,0 +1,65 @@
+{
+	"name": "vstask",
+	"displayName": "vstask",
+	"version": "0.0.0",
+	"private": true,
+	"description": "Recursive VS Code task runner. Development stage; not release-ready.",
+	"type": "commonjs",
+	"main": "dist/extension.js",
+	"contributes": {
+		"configuration": {
+			"title": "vstask",
+			"properties": {
+				"vstask.roots": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": [
+						"."
+					],
+					"scope": "resource",
+					"description": "Task discovery directories, absolute or relative to each workspace folder."
+				},
+				"vstask.exclude": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"default": [],
+					"scope": "resource",
+					"description": "Directory names or relative paths excluded from task discovery."
+				},
+				"vstask.useDefaultExclusions": {
+					"type": "boolean",
+					"default": true,
+					"scope": "resource",
+					"description": "Exclude .git and node_modules from task discovery."
+				}
+			}
+		},
+		"taskDefinitions": [
+			{
+				"type": "vstask",
+				"required": [
+					"identity"
+				],
+				"properties": {
+					"identity": {
+						"type": "string",
+						"description": "Canonical task identity."
+					}
+				}
+			}
+		]
+	},
+	"activationEvents": [
+		"onTaskType:vstask"
+	],
+	"dependencies": {
+		"@vstask/core": "0.0.0"
+	},
+	"engines": {
+		"vscode": "^1.105.0"
+	}
+}

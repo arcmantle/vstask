@@ -1,0 +1,29 @@
+#!/bin/sh
+case "$0" in
+  */*) entry_directory=${0%/*} ;;
+  *) entry_directory=. ;;
+esac
+entry_directory=$(CDPATH= cd -P "$entry_directory" && pwd) || exit 1
+
+bootstrap() {
+  runtime_path=$1
+  shift
+  runtime_version=$("$runtime_path" --version 2>/dev/null) || return 1
+  case "$runtime_version" in
+    v[0-9].*|v1[0-5].*|0.*|"deno 0."*|"deno 1."*) return 1 ;;
+    v[0-9]*|[1-9]*.[0-9]*.[0-9]*) exec "$runtime_path" "$entry_directory/launch.cjs" "$@" ;;
+    "deno "*) exec "$runtime_path" run --allow-all --no-prompt --quiet "$entry_directory/launch.cjs" "$@" ;;
+  esac
+  return 1
+}
+
+if [ -n "${VSTASK_RUNTIME:-}" ]; then
+  bootstrap "$VSTASK_RUNTIME" "$@"
+else
+  for runtime_name in node bun deno; do
+    runtime_path=$(command -v "$runtime_name") || continue
+    bootstrap "$runtime_path" "$@"
+  done
+fi
+printf '%s\n' 'No usable runtime was found, or the explicit runtime is missing or unsupported. Install Node.js 22.16+ or 24 LTS, Bun 1.2+, or Deno 2.4+ (stable releases). See https://nodejs.org/, https://bun.sh/, or https://deno.com/.' >&2
+exit 1

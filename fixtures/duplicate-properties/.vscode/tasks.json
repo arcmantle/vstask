@@ -1,0 +1,12 @@
+{
+	"version": "2.0.0",
+	"tasks": [],
+	"tasks": [
+		{
+			"label": "obsolete",
+			"label": "fixture:current",
+			"type": "process",
+			"command": "node"
+		}
+	]
+}

@@ -1,0 +1,14 @@
+{
+	// The first parser-to-CLI contract.
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "fixture:build",
+			"type": "process",
+			"command": "node",
+			"args": [
+				"--version"
+			],
+		},
+	],
+}
